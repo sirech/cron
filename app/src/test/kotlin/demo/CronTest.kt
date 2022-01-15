@@ -6,6 +6,7 @@ import kotlin.test.Test
 
 internal class CronTest {
     val cron = Cron(
+        minute = listOf(0, 15, 30, 45),
         hour = listOf(0),
         dayOfMonth = listOf(1, 15),
         month = (1..12).toList(),

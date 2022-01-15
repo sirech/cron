@@ -25,9 +25,14 @@ internal class ParserTest {
     @Test
     fun `parses the command`() {
         expectThat(parser.parse())
-            .isNotNull()
-            .get { command }
-            .isEqualTo("/usr/bin/find")
+            .isNotNull().and {
+                get { minute }.isEqualTo(listOf(0, 15, 30, 45))
+                get { hour }.isEqualTo(listOf(0))
+                get { dayOfMonth }.isEqualTo(listOf(1, 15))
+                get { month }.isEqualTo((1..12).toList())
+                get { dayOfWeek }.isEqualTo((1..5).toList())
+                get { command }.isEqualTo("/usr/bin/find")
+            }
 
     }
 }

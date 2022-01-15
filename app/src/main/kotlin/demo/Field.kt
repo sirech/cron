@@ -4,6 +4,14 @@ import java.lang.NumberFormatException
 
 class Field(private val range: IntRange) {
     fun parse(expression: String): List<Int>? {
+        if ('/' in expression) {
+            return stepValues(expression)
+        }
+
+        return parseExpression(expression)
+    }
+
+    private fun parseExpression(expression: String): List<Int>? {
         if (expression == "*") {
             return range.toList()
         }
@@ -18,6 +26,18 @@ class Field(private val range: IntRange) {
 
         val value = singleValue(expression)
         return value?.let { listOf(it) }
+    }
+
+    private fun stepValues(expression: String): List<Int>? {
+        val parts = expression.split("/")
+        val values = parseExpression(parts[0])
+        val step = singleValue(parts[1])
+
+        return if (values == null || step == null) {
+            null
+        } else {
+            values.filter { it % step == 0 }
+        }
     }
 
     private fun rangeOfValues(expression: String): List<Int>? {

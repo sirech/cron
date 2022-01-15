@@ -4,6 +4,7 @@ import java.lang.IllegalArgumentException
 
 class Parser(private val crontab: String) {
     private fun map(field: String) = when (field) {
+        "minute" -> 0
         "hour" -> 1
         "dayOfMonth" -> 2
         "month" -> 3
@@ -13,6 +14,7 @@ class Parser(private val crontab: String) {
     }
 
     private fun field(field: String) = when (field) {
+        "minute" -> Field(0..59)
         "hour" -> Field(0..23)
         "dayOfMonth" -> Field(1..31)
         "month" -> Field(1..12)
@@ -27,16 +29,18 @@ class Parser(private val crontab: String) {
 
     fun parse(): Cron? {
         val fields = crontab.split(" ")
+        val minute = process(fields, "minute")
         val hour = process(fields, "hour")
         val dayOfMonth = process(fields, "dayOfMonth")
         val month = process(fields, "month")
         val dayOfWeek = process(fields, "dayOfWeek")
 
-        if (listOf(hour, dayOfMonth, month, dayOfWeek).any { it == null }) {
+        if (listOf(minute, hour, dayOfMonth, month, dayOfWeek).any { it == null }) {
             return null
         }
 
         return Cron(
+            minute = minute!!,
             hour = hour!!,
             dayOfMonth = dayOfMonth!!,
             month = month!!,

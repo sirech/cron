@@ -74,4 +74,25 @@ internal class FieldTest {
             .isNotNull()
             .isEqualTo((1..5).toList())
     }
+
+    @Test
+    fun `parses a step value with a wildcard`() {
+        expectThat(Field(0..59).parse("*/15"))
+            .isNotNull()
+            .isEqualTo(listOf(0, 15, 30, 45))
+    }
+
+    @Test
+    fun `parses a step value with a single value`() {
+        expectThat(Field(0..59).parse("4/2"))
+            .isNotNull()
+            .isEqualTo(listOf(4))
+    }
+
+    @Test
+    fun `parses a step value with a range`() {
+        expectThat(Field(0..59).parse("0-5/2"))
+            .isNotNull()
+            .isEqualTo(listOf(0, 2, 4))
+    }
 }
