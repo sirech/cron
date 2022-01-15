@@ -12,26 +12,30 @@ class Field(private val range: IntRange) {
             return multipleValues(expression)
         }
 
-        val value = expression.asNumber()
-        return if (value == null || value !in range) {
-            null
-        } else {
-            listOf(value)
-        }
+        val value = singleValue(expression)
+        return value?.let { listOf(it) }
     }
 
     private fun multipleValues(expression: String): List<Int>? {
         val parts = expression.split(",")
-        val values = parts.map { it.asNumber() }
-
-        return if (values.any { it == null || it !in range }) {
+        val values = parts.map { singleValue(it) }
+        return if (values.any { it == null }) {
             null
         } else {
             values.map { it!! }
         }
     }
 
-    fun String.asNumber() = try {
+    private fun singleValue(expression: String): Int? {
+        val value = expression.asNumber()
+        return if (value == null || value !in range) {
+            null
+        } else {
+            value
+        }
+    }
+
+    private fun String.asNumber() = try {
         this.toInt()
     } catch (e: NumberFormatException) {
         null
