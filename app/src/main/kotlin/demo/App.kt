@@ -12,5 +12,7 @@ class App {
 
 fun main(args: Array<String>) {
     val parser = Parser(args[0])
-    println(parser.parse().print())
+    val cron = parser.parse()
+    val output = cron?.print() ?: "Couldn't parse expression"
+    println(output)
 }
