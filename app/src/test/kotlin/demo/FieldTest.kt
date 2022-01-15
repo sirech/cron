@@ -15,6 +15,12 @@ internal class FieldTest {
     }
 
     @Test
+    fun `returns null if the field is out of range`() {
+        expectThat(field.parse("24"))
+            .isNull()
+    }
+
+    @Test
     fun `parses an individual value`() {
         val result = field.parse("0")
         expectThat(result)

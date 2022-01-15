@@ -9,7 +9,7 @@ class Field(private val range: IntRange) {
         }
 
         val value = expression.asNumber()
-        return if (value == null) {
+        return if (value == null || value !in range) {
             null
         } else {
             listOf(value)
