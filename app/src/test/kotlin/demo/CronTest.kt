@@ -7,6 +7,8 @@ import kotlin.test.Test
 internal class CronTest {
     @Test
     fun `formats output correctly`() {
-        expectThat(Cron().print()).isEqualTo("")
+        val fixture = "output1".asStream().readTextAndClose()
+        val output = Cron().print()
+        expectThat(output).isEqualTo(fixture)
     }
 }
