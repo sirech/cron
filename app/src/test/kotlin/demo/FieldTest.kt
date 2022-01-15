@@ -21,6 +21,30 @@ internal class FieldTest {
     }
 
     @Test
+    fun `returns null if the field is a list with invalid elements`() {
+        expectThat(field.parse("1,a"))
+            .isNull()
+    }
+
+    @Test
+    fun `returns null if the field is a list with elements out of range`() {
+        expectThat(field.parse("1,31"))
+            .isNull()
+    }
+
+    @Test
+    fun `returns null if the field is a range with invalid elements`() {
+        expectThat(field.parse("1-a"))
+            .isNull()
+    }
+
+    @Test
+    fun `returns null if the field is a range with elements out of range`() {
+        expectThat(field.parse("1-31"))
+            .isNull()
+    }
+
+    @Test
     fun `parses an individual value`() {
         val result = field.parse("0")
         expectThat(result)

@@ -17,6 +17,12 @@ internal class ParserTest {
     }
 
     @Test
+    fun `returns null if the expression runs ouf of range`() {
+        expectThat(Parser("*/15 0 1,15,32 * 1-5 /usr/bin/find").parse())
+            .isNull()
+    }
+
+    @Test
     fun `parses the command`() {
         expectThat(parser.parse())
             .isNotNull()
