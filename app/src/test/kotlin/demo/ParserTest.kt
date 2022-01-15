@@ -23,6 +23,20 @@ internal class ParserTest {
     }
 
     @Test
+    fun `parses a simple command`() {
+        expectThat(Parser("15 0 1 3 5 /usr/bin/find").parse())
+            .isNotNull().and {
+                get { minute }.isEqualTo(listOf(15))
+                get { hour }.isEqualTo(listOf(0))
+                get { dayOfMonth }.isEqualTo(listOf(1))
+                get { month }.isEqualTo(listOf(3))
+                get { dayOfWeek }.isEqualTo(listOf(5))
+                get { command }.isEqualTo("/usr/bin/find")
+            }
+
+    }
+
+    @Test
     fun `parses the command`() {
         expectThat(parser.parse())
             .isNotNull().and {
@@ -31,6 +45,20 @@ internal class ParserTest {
                 get { dayOfMonth }.isEqualTo(listOf(1, 15))
                 get { month }.isEqualTo((1..12).toList())
                 get { dayOfWeek }.isEqualTo((1..5).toList())
+                get { command }.isEqualTo("/usr/bin/find")
+            }
+
+    }
+
+    @Test
+    fun `parses the a full wildcard`() {
+        expectThat(Parser("* * * * * /usr/bin/find").parse())
+            .isNotNull().and {
+                get { minute }.isEqualTo((0..59).toList())
+                get { hour }.isEqualTo((0..23).toList())
+                get { dayOfMonth }.isEqualTo((1..31).toList())
+                get { month }.isEqualTo((1..12).toList())
+                get { dayOfWeek }.isEqualTo((0..7).toList())
                 get { command }.isEqualTo("/usr/bin/find")
             }
 
