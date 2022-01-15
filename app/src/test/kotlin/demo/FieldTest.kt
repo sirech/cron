@@ -36,4 +36,11 @@ internal class FieldTest {
             .isNotNull()
             .isEqualTo(range.toList())
     }
+
+    @Test
+    fun `parses a union of values`() {
+        expectThat(field.parse("1,15"))
+            .isNotNull()
+            .isEqualTo(listOf(1, 15))
+    }
 }
