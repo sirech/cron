@@ -2,10 +2,13 @@ package demo
 
 import java.lang.NumberFormatException
 
-class Field {
+class Field(private val range: IntRange) {
     fun parse(expression: String): List<Int>? {
-        val value = expression.asNumber()
+        if (expression == "*") {
+            return range.toList()
+        }
 
+        val value = expression.asNumber()
         return if (value == null) {
             null
         } else {

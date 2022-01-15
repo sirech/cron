@@ -7,6 +7,7 @@ import kotlin.test.Test
 internal class CronTest {
     val cron = Cron(
         hour = listOf(0),
+        month = (1..12).toList(),
         command = "/usr/bin/find"
     )
 
