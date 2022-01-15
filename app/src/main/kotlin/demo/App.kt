@@ -11,5 +11,6 @@ class App {
 }
 
 fun main(args: Array<String>) {
-    println(Cron().print())
+    val parser = Parser(args[0])
+    println(parser.parse().print())
 }

@@ -2,13 +2,12 @@ package demo
 
 import java.lang.StringBuilder
 
-class Cron {
+data class Cron(val command: String) {
     fun minute() = listOf(0, 15, 30, 45)
     fun hour() = listOf(0)
     fun dayOfMonth() = listOf(1, 15)
     fun month() = (1..12).toList()
     fun dayOfWeek() = (1..5).toList()
-    fun command() = "/usr/bin/find"
 
     fun print(): String {
         return StringBuilder().also { sb ->
@@ -18,7 +17,7 @@ class Cron {
                 formatLine("day of month", dayOfMonth().joinToString(" ")),
                 formatLine("month", month().joinToString(" ")),
                 formatLine("day of week", dayOfWeek().joinToString(" ")),
-                formatLine("command", command())
+                formatLine("command", command)
             )
             lines.forEach { sb.append(it) }
         }.toString()
