@@ -8,12 +8,28 @@ class Field(private val range: IntRange) {
             return range.toList()
         }
 
+        if ('-' in expression) {
+            return rangeOfValues(expression)
+        }
+
         if (',' in expression) {
             return multipleValues(expression)
         }
 
         val value = singleValue(expression)
         return value?.let { listOf(it) }
+    }
+
+    private fun rangeOfValues(expression: String): List<Int>? {
+        val parts = expression.split("-")
+        val start = singleValue(parts[0])
+        val end = singleValue(parts[1])
+
+        return if (start == null || end == null) {
+            null
+        } else {
+            (start..end).toList()
+        }
     }
 
     private fun multipleValues(expression: String): List<Int>? {

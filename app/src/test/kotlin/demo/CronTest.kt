@@ -9,6 +9,7 @@ internal class CronTest {
         hour = listOf(0),
         dayOfMonth = listOf(1, 15),
         month = (1..12).toList(),
+        dayOfWeek = (1..5).toList(),
         command = "/usr/bin/find"
     )
 

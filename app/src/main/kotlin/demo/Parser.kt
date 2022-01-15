@@ -7,6 +7,7 @@ class Parser(private val crontab: String) {
         "hour" -> 1
         "dayOfMonth" -> 2
         "month" -> 3
+        "dayOfWeek" -> 4
         "command" -> 5
         else -> -1
     }
@@ -15,6 +16,7 @@ class Parser(private val crontab: String) {
         "hour" -> Field(0..23)
         "dayOfMonth" -> Field(1..31)
         "month" -> Field(1..12)
+        "dayOfWeek" -> Field(0..7)
         else -> throw IllegalArgumentException("$field doesn't exist")
     }
 
@@ -28,8 +30,9 @@ class Parser(private val crontab: String) {
         val hour = process(fields, "hour")
         val dayOfMonth = process(fields, "dayOfMonth")
         val month = process(fields, "month")
+        val dayOfWeek = process(fields, "dayOfWeek")
 
-        if (listOf(hour, dayOfMonth, month).any { it == null }) {
+        if (listOf(hour, dayOfMonth, month, dayOfWeek).any { it == null }) {
             return null
         }
 
@@ -37,6 +40,7 @@ class Parser(private val crontab: String) {
             hour = hour!!,
             dayOfMonth = dayOfMonth!!,
             month = month!!,
+            dayOfWeek = dayOfWeek!!,
             command = fields[map("command")]
         )
     }
