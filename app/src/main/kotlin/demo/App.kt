@@ -11,6 +11,11 @@ class App {
 }
 
 fun main(args: Array<String>) {
+    if(args.isEmpty()) {
+        println("No expression provided")
+        return
+    }
+    
     val parser = Parser(args[0])
     val cron = parser.parse()
     val output = cron?.print() ?: "Couldn't parse expression"
