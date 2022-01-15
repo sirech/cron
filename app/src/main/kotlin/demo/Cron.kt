@@ -2,9 +2,8 @@ package demo
 
 import java.lang.StringBuilder
 
-data class Cron(val command: String) {
+data class Cron(val hour: List<Int>, val command: String) {
     fun minute() = listOf(0, 15, 30, 45)
-    fun hour() = listOf(0)
     fun dayOfMonth() = listOf(1, 15)
     fun month() = (1..12).toList()
     fun dayOfWeek() = (1..5).toList()
@@ -13,7 +12,7 @@ data class Cron(val command: String) {
         return StringBuilder().also { sb ->
             val lines = listOf(
                 formatLine("minute", minute().joinToString(" ")),
-                formatLine("hour", hour().joinToString(" ")),
+                formatLine("hour", hour.joinToString(" ")),
                 formatLine("day of month", dayOfMonth().joinToString(" ")),
                 formatLine("month", month().joinToString(" ")),
                 formatLine("day of week", dayOfWeek().joinToString(" ")),
