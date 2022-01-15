@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
         println("No expression provided")
         return
     }
-    
+
     val parser = Parser(args[0])
     val cron = parser.parse()
     val output = cron?.print() ?: "Couldn't parse expression"

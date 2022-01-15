@@ -11,6 +11,18 @@ internal class ParserTest {
     val parser = Parser(crontab)
 
     @Test
+    fun `returns null if the expression is too short`() {
+        expectThat(Parser("*/15 0 1,15 * /usr/bin/find").parse())
+            .isNull()
+    }
+
+    @Test
+    fun `returns null if the expression is too long`() {
+        expectThat(Parser("*/15 0 1,15 * 1-5 * /usr/bin/find").parse())
+            .isNull()
+    }
+
+    @Test
     fun `returns null if the expression can not be parsed`() {
         expectThat(Parser("*/15 a 1,15 * 1-5 /usr/bin/find").parse())
             .isNull()

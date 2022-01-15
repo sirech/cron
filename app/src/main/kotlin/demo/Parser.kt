@@ -29,6 +29,9 @@ class Parser(private val crontab: String) {
 
     fun parse(): Cron? {
         val fields = crontab.split(" ")
+
+        if(fields.size != 6) return null
+
         val minute = process(fields, "minute")
         val hour = process(fields, "hour")
         val dayOfMonth = process(fields, "dayOfMonth")
