@@ -10,7 +10,7 @@ class Parser(private val crontab: String) {
         "month" -> 3
         "dayOfWeek" -> 4
         "command" -> 5
-        else -> -1
+        else -> throw IllegalArgumentException("$field doesn't exist")
     }
 
     private fun field(field: String) = when (field) {

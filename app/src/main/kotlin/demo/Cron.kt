@@ -2,6 +2,11 @@ package demo
 
 import java.lang.StringBuilder
 
+/**
+ * This class is purely representational.
+ *
+ * It represents a cron expression as an expanded list of values, and can print itself as a table.
+ */
 data class Cron(
     val minute: List<Int>,
     val hour: List<Int>,

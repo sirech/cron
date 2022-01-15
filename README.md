@@ -51,6 +51,8 @@ The parser checks the expression for validity, including:
 
 The checks aren't 100% comprehensive, though. When an expression can't be parsed, it's propagated back. There are no granular error messages.
 
+The error handling works through empty values instead of exceptions. It makes the code a bit more verbose due to the propagation, but it's more explicit about failures. The empty value is the first step toward using [Either values](https://arrow-kt.io/docs/apidocs/arrow-core/arrow.core/-either/).
+
 ## Supported Operations
 
 - Wildcards
